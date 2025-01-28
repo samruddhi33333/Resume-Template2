@@ -318,4 +318,97 @@
         const div = document.createElement("div");
         div.className = "input-group";
         div.innerHTML = `
-          <
+          <input type="text" placeholder="Language Name">
+          <input type="text" placeholder="Proficiency Level">
+          <button onclick="this.parentElement.remove()" class="remove-btn">Remove</button>
+        `;
+        container.appendChild(div);
+      }
+
+      function addAchievement() {
+        const container = document.getElementById("achievementInputs");
+        const div = document.createElement("div");
+        div.className = "input-group";
+        div.innerHTML = `
+          <input type="text" placeholder="Achievement Title">
+          <input type="text" placeholder="Date">
+          <textarea placeholder="Description"></textarea>
+          <button onclick="this.parentElement.remove()" class="remove-btn">Remove</button>
+        `;
+        container.appendChild(div);
+      }
+
+      function generateResume() {
+        const preview = document.getElementById("resumePreview");
+        
+        const personalInfo = `
+          <h2>Personal Information</h2>
+          <p><strong>${document.getElementById("fullName").value}</strong></p>
+          <p>Title: ${document.getElementById("title").value}</p>
+          <p>LinkedIn: <a href="${document.getElementById("linkedin").value}" target="_blank">LinkedIn</a></p>
+          <p>GitHub: <a href="${document.getElementById("github").value}" target="_blank">GitHub</a></p>
+          <p>Email: ${document.getElementById("email").value}</p>
+          <p>Phone: ${document.getElementById("phone").value}</p>
+        `;
+        
+        const summary = `
+          <h2>Summary/About Me</h2>
+          <p>${document.getElementById("summary").value}</p>
+        `;
+        
+        let experience = "<h2>Work Experience</h2>";
+        document.querySelectorAll("#experienceInputs .input-group").forEach((exp) => {
+          const inputs = exp.querySelectorAll("input, textarea");
+          experience += `
+            <h3>${inputs[0].value} at ${inputs[1].value}</h3>
+            <p>Duration: ${inputs[2].value}</p>
+            <p>${inputs[3].value}</p>
+          `;
+        });
+        
+        let projects = "<h2>Projects</h2>";
+        document.querySelectorAll("#projectInputs .input-group").forEach((proj) => {
+          const inputs = proj.querySelectorAll("input, textarea");
+          projects += `
+            <h3>${inputs[0].value}</h3>
+            <p><a href="${inputs[1].value}" target="_blank">GitHub Link</a> | <a href="${inputs[2].value}" target="_blank">Deployment Link</a></p>
+            <p>${inputs[3].value}</p>
+          `;
+        });
+        
+        let education = "<h2>Education</h2>";
+        document.querySelectorAll("#educationInputs .input-group").forEach((edu) => {
+          const inputs = edu.querySelectorAll("input");
+          education += `
+            <h3>${inputs[0].value} at ${inputs[1].value}</h3>
+            <p>Duration: ${inputs[2].value}</p>
+          `;
+        });
+
+        let skills = "<h2>Skills</h2>";
+        document.querySelectorAll("#skillsInputs .input-group").forEach((skill) => {
+          const input = skill.querySelector("input");
+          skills += `<p>${input.value}</p>`;
+        });
+        
+        let languages = "<h2>Languages</h2>";
+        document.querySelectorAll("#languageInputs .input-group").forEach((lang) => {
+          const inputs = lang.querySelectorAll("input");
+          languages += `<p>${inputs[0].value} - ${inputs[1].value}</p>`;
+        });
+
+        let achievements = "<h2>Achievements</h2>";
+        document.querySelectorAll("#achievementInputs .input-group").forEach((ach) => {
+          const inputs = ach.querySelectorAll("input, textarea");
+          achievements += `
+            <h3>${inputs[0].value}</h3>
+            <p>Date: ${inputs[1].value}</p>
+            <p>${inputs[2].value}</p>
+          `;
+        });
+
+        preview.innerHTML = personalInfo + summary + experience + projects + education + skills + languages + achievements;
+      }
+    </script>
+  </body>
+</html>
